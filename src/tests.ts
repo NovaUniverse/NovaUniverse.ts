@@ -14,6 +14,9 @@ async function test() {
 	let profile = await NovaAPI.getPlayerProfile(uuid);
 	console.log(profile);
 
+	console.log("UUID to full:");
+	console.log(NovaAPI.shortUUIDToFull(profile.id));
+
 	console.log("Online players:");
 	let online = await NovaAPI.getOnlinePlayers();
 	console.log(online);

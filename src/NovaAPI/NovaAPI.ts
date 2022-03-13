@@ -10,6 +10,10 @@ import ISession from "./stats/session/ISession";
 import ITournamentSession from "./tournament/TournamentSession";
 
 export default class NovaAPI {
+	public static shortUUIDToFull(uuid: string): string {
+		return uuid.slice(0, 8) + "-" + uuid.slice(8, 12) + "-" + uuid.slice(12, 16) + "-" + uuid.slice(16, 20) + "-" + uuid.slice(20);
+	}
+	
 	public static async getPlayerUUID(name: string): Promise<string | null> {
 		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/private/mojang/name_to_uuid/" + name);
 
