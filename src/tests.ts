@@ -6,6 +6,10 @@ async function test() {
 	console.log("Connectivity check");
 	console.log(await NovaAPI.connectivityCheck());
 
+	console.log("Get UUID of Zeeraa01Fake");
+	let uuidFail = await NovaAPI.getPlayerUUID("Zeeraa01Fake");
+	console.log(uuidFail);
+
 	console.log("Get UUID of Zeeraa01");
 	let uuid = await NovaAPI.getPlayerUUID("Zeeraa01");
 	console.log(uuid);

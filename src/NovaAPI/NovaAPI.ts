@@ -13,22 +13,22 @@ export default class NovaAPI {
 	public static shortUUIDToFull(uuid: string): string {
 		return uuid.slice(0, 8) + "-" + uuid.slice(8, 12) + "-" + uuid.slice(12, 16) + "-" + uuid.slice(16, 20) + "-" + uuid.slice(20);
 	}
-	
-	public static async getPlayerUUID(name: string): Promise<string | null> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/private/mojang/name_to_uuid/" + name);
 
-		if (response.data.data != null) {
-			return response.data.data.full_uuid;
+	public static async getPlayerUUID(name: string): Promise<string | null> {
+		try {
+			let response = await axios.get("https://mojangapi.novauniverse.net/username_to_uuid/" + name);
+			return response.data.uuid;
+		} catch (err) {
 		}
 
 		return null;
 	}
 
 	public static async getPlayerProfile(uuid: string): Promise<IProfile | null> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/private/mojang/profile/" + uuid);
-
-		if (response.data.data != null) {
-			return response.data.data;
+		try {
+			let response = await axios.get("https://mojangapi.novauniverse.net/profile/" + uuid);
+			return response.data;
+		} catch (err) {
 		}
 
 		return null;
