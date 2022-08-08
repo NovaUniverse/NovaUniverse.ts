@@ -61,6 +61,9 @@ async function test() {
 	console.log("Zeeraa01's first session:");
 	console.log(await zeeraa01stats.sessions[0].getFullSessionData());
 
+	console.log("NovaGames stats:");
+	console.log(await NovaAPI.getNovaGamesResults());
+
 }
 
 test();

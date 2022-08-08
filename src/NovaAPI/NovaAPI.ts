@@ -53,6 +53,19 @@ export default class NovaAPI {
 		return result;
 	}
 
+	public static async getNovaGamesResults(): Promise<ITournamentSession[]> {
+		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/nova_games/result/");
+		let data = response.data;
+
+		let result: ITournamentSession[] = [];
+
+		data.forEach((s: any) => {
+			result.push(new ITournamentSession(s.id, s.date, s.display_name, s.winner_team_id, s.teams, s.players));
+		});
+
+		return result;
+	}
+
 	public static async connectivityCheck(): Promise<boolean> {
 		try {
 			let response = await axios.get("https://novauniverse.net/api/connectivity_check/");
