@@ -64,6 +64,9 @@ async function test() {
 	console.log("NovaGames stats:");
 	console.log(await NovaAPI.getNovaGamesResults());
 
+	console.log("Ultrasharp stats:");
+	console.log(await NovaAPI.getUltrasharpResults());
+
 }
 
 test();

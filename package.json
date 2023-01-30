@@ -4,6 +4,7 @@
   "description": "An api for the novauniverse minecraft server",
   "main": "dist/NovaAPI/NovaAPI.js",
   "scripts": {
+    "test": "node ./dist/tests.js"
   },
   "author": "Zeeraa",
   "license": "ISC",

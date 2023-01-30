@@ -35,13 +35,13 @@ export default class NovaAPI {
 	}
 
 	public static async getOnlinePlayers(): Promise<IGlobalNetworkPlayersStatistics> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/players/online/");
+		let response: AxiosResponse = await axios.get("https://api.novauniverse.net/v1/novauniverse_mc/players/online/");
 
 		return response.data;
 	}
 
 	public static async getMCFResults(): Promise<ITournamentSession[]> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/mcf/result/");
+		let response: AxiosResponse = await axios.get("https://api.novauniverse.net/v1/tournaments/mcf/result/");
 		let data = response.data;
 
 		let result: ITournamentSession[] = [];
@@ -54,7 +54,20 @@ export default class NovaAPI {
 	}
 
 	public static async getNovaGamesResults(): Promise<ITournamentSession[]> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/nova_games/result/");
+		let response: AxiosResponse = await axios.get("https://api.novauniverse.net/v1/tournaments/nova_games/result/");
+		let data = response.data;
+
+		let result: ITournamentSession[] = [];
+		
+		data.forEach((s: any) => {
+			result.push(new ITournamentSession(s.id, s.date, s.display_name, s.winner_team_id, s.teams, s.players));
+		});
+
+		return result;
+	}
+
+	public static async getUltrasharpResults(): Promise<ITournamentSession[]> {
+		let response: AxiosResponse = await axios.get("https://api.novauniverse.net/v1/tournaments/ultrasharp/result/");
 		let data = response.data;
 
 		let result: ITournamentSession[] = [];
@@ -68,7 +81,7 @@ export default class NovaAPI {
 
 	public static async connectivityCheck(): Promise<boolean> {
 		try {
-			let response = await axios.get("https://novauniverse.net/api/connectivity_check/");
+			let response = await axios.get("https://api.novauniverse.net/v1/connectivity_check/");
 
 			return response.data.success;
 		} catch (err) {
@@ -77,25 +90,25 @@ export default class NovaAPI {
 	}
 
 	public static async getBasicStats(): Promise<IBasicStats> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/stats/basic/");
+		let response: AxiosResponse = await axios.get("https://api.novauniverse.net/v1/novauniverse_mc/stats/basic/");
 
 		return response.data;
 	}
 
 	public static async getExtendedStats(): Promise<IExtendedStats> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/stats/extended/");
+		let response: AxiosResponse = await axios.get("https://api.novauniverse.net/v1/novauniverse_mc/stats/extended/");
 
 		return response.data;
 	}
 
 	public static async getDiscordStats(): Promise<IDiscordStats> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/stats/discord/");
+		let response: AxiosResponse = await axios.get("https://api.novauniverse.net/v1/discord/");
 
 		return response.data;
 	}
 
 	public static async getPlayerStats(uuid: string): Promise<IPlayerStats | null> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/stats/player/" + uuid);
+		let response: AxiosResponse = await axios.get("https://api.novauniverse.net/v1/novauniverse_mc/stats/player/" + uuid);
 
 		if (response.data.success === false) {
 			return null;
@@ -119,7 +132,7 @@ export default class NovaAPI {
 	}
 
 	public static async getSession(id: number): Promise<ISession | null> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/stats/session/by_id/" + id);
+		let response: AxiosResponse = await axios.get("https://api.novauniverse.net/v1/novauniverse_mc/stats/session/by_id/" + id);
 
 		if (response.data.success === false) {
 			return null;
@@ -129,7 +142,7 @@ export default class NovaAPI {
 	}
 
 	public static async getSessionList(): Promise<number[]> {
-		let response: AxiosResponse = await axios.get("https://novauniverse.net/api/stats/session/all/");
+		let response: AxiosResponse = await axios.get("https://api.novauniverse.net/v1/novauniverse_mc/stats/session/all/");
 
 		return response.data.data;
 	}
